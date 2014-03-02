@@ -6,8 +6,14 @@ using namespace cv;
 QImage OpenCVUtils::ToQImage(cv::Mat const &in)
 {
     Mat image;// = OpenCVUtils::ToRGB(in);    
+    Mat temp;
+    in.copyTo(temp);
     
-    cvtColor(in, image,CV_BGR2RGB);
+    if (in.channels() == 1) {
+        cvtColor(temp, temp,CV_GRAY2BGR);
+    }
+    
+    cvtColor(temp, image,CV_BGR2RGB);
     
     QImage dest((uchar*) image.data,
                 image.cols,

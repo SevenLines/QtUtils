@@ -13,11 +13,17 @@ void QLabelImage::showPixmapProp()
     if (mPixmap.width() > width()) {
         mode = Qt::SmoothTransformation;
     }
-    setPixmap(mPixmap.scaled(width(),
+    if (mPixmap.width() < width() &&
+            mPixmap.height() < height()) {
+        setPixmap(mPixmap);
+    } else {
+        setPixmap(mPixmap.scaled(width(),
                             height(),
                             Qt::KeepAspectRatio,
                             mode));
+    }
 }
+    
 
 
 QLabelImage::QLabelImage(QWidget *parent) :
